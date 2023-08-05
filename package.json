@@ -10,6 +10,7 @@
     "dev-docker": "nodemon --watch . --exec 'npm run dev'"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@nextui-org/button": "^0.0.0-dev-v2-20230714000855",
     "@nextui-org/code": "^0.0.0-dev-v2-20230714000855",
     "@nextui-org/input": "^0.0.0-dev-v2-20230714000855",

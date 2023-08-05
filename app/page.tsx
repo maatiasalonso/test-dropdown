@@ -10,6 +10,7 @@ import {
 import { Image } from "@nextui-org/image";
 import { Card, CardBody } from "@nextui-org/card";
 import { Badge } from "@nextui-org/badge";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]);
@@ -42,62 +43,67 @@ export default function Home() {
   };
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div
-        {...getRootProps({
-          className:
-            "dropzone p-4 border-2 border-dashed rounded-lg border-gray-500",
-        })}
-      >
-        <input {...getInputProps()} />
-        <p className="text-center">
-          Drag n drop some files here, or click to select files
-        </p>
-      </div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable" direction="horizontal">
-          {(provided) => (
-            <aside
-              className="mt-4 grid grid-cols-4 gap-4"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {files.map((file, index) => (
-                <Draggable
-                  key={file.name}
-                  draggableId={file.name}
-                  index={index}
+      <Card className="py-4">
+        <CardBody className="overflow-visible py-2">
+          <div
+            {...getRootProps({
+              className:
+                "dropzone p-4 border-2 border-dashed rounded-lg border-gray-400 cursor-pointer",
+            })}
+          >
+            <input {...getInputProps()} />
+            <PhotoIcon className="w-24 h-24 text-gray-300 mx-auto" />
+            <p className="text-center text-gray-500">
+              Drag n drop some files here, or click to select files
+            </p>
+          </div>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable" direction="horizontal">
+              {(provided) => (
+                <aside
+                  className="mt-4 grid grid-cols-4 gap-4"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
                 >
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
+                  {files.map((file, index) => (
+                    <Draggable
+                      key={file.name}
+                      draggableId={file.name}
+                      index={index}
                     >
-                      <Badge
-                        content={index + 1}
-                        color="primary"
-                        placement="top-left"
-                        className="p-5"
-                      >
-                        <Card className="py-4">
-                          <CardBody className="overflow-visible py-2">
-                            <Image
-                              alt="NextUI hero Image"
-                              className="w-64 h-64"
-                              src={URL.createObjectURL(file)}
-                            />
-                          </CardBody>
-                        </Card>
-                      </Badge>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </aside>
-          )}
-        </Droppable>
-      </DragDropContext>
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Badge
+                            content={index + 1}
+                            color="primary"
+                            placement="top-left"
+                            className="p-5"
+                          >
+                            <Card className="py-4">
+                              <CardBody className="overflow-visible py-2">
+                                <Image
+                                  alt="NextUI hero Image"
+                                  className="w-64 h-64"
+                                  src={URL.createObjectURL(file)}
+                                />
+                              </CardBody>
+                            </Card>
+                          </Badge>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </aside>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </CardBody>
+      </Card>
     </section>
   );
 }
