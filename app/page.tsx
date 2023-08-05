@@ -1,54 +1,103 @@
-import NextLink from "next/link";
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code"
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+"use client";
+import React, { useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "react-beautiful-dnd";
+import { Image } from "@nextui-org/image";
+import { Card, CardBody } from "@nextui-org/card";
+import { Badge } from "@nextui-org/badge";
 
 export default function Home() {
-	return (
-		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-			<div className="inline-block max-w-lg text-center justify-center">
-				<h1 className={title()}>Make&nbsp;</h1>
-				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
-				<br />
-				<h1 className={title()}>
-					websites regardless of your design experience.
-				</h1>
-				<h2 className={subtitle({ class: "mt-4" })}>
-					Beautiful, fast and modern React UI library.
-				</h2>
-			</div>
+  const [files, setFiles] = useState<File[]>([]);
 
-			<div className="flex gap-3">
-				<Link
-					isExternal
-					as={NextLink}
-					href={siteConfig.links.docs}
-					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
-				>
-					Documentation
-				</Link>
-				<Link
-					isExternal
-					as={NextLink}
-					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
-				>
-					<GithubIcon size={20} />
-					GitHub
-				</Link>
-			</div>
+  const onDrop = useCallback((acceptedFiles: any) => {
+    setFiles((prev) => {
+      const newFiles = acceptedFiles.filter(
+        (file: File) =>
+          !prev.some((f) => f.name === file.name && f.size === file.size)
+      );
+      return [...prev, ...newFiles];
+    });
+  }, []);
 
-			<div className="mt-8">
-				<Snippet hideSymbol hideCopyButton variant="bordered">
-					<span>
-						Get started by editing <Code color="primary">app/page.tsx</Code>
-					</span>
-				</Snippet>
-			</div>
-		</section>
-	);
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: "image/*" as any,
+  });
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const items = Array.from(files);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setFiles(items);
+  };
+  return (
+    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <div
+        {...getRootProps({
+          className:
+            "dropzone p-4 border-2 border-dashed rounded-lg border-gray-500",
+        })}
+      >
+        <input {...getInputProps()} />
+        <p className="text-center">
+          Drag n drop some files here, or click to select files
+        </p>
+      </div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable" direction="horizontal">
+          {(provided) => (
+            <aside
+              className="mt-4 grid grid-cols-4 gap-4"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {files.map((file, index) => (
+                <Draggable
+                  key={file.name}
+                  draggableId={file.name}
+                  index={index}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Badge
+                        content={index + 1}
+                        color="primary"
+                        placement="top-left"
+                        className="p-5"
+                      >
+                        <Card className="py-4">
+                          <CardBody className="overflow-visible py-2">
+                            <Image
+                              alt="NextUI hero Image"
+                              className="w-64 h-64"
+                              src={URL.createObjectURL(file)}
+                            />
+                          </CardBody>
+                        </Card>
+                      </Badge>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </aside>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </section>
+  );
 }
