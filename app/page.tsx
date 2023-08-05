@@ -61,7 +61,7 @@ export default function Home() {
             <Droppable droppableId="droppable" direction="horizontal">
               {(provided) => (
                 <aside
-                  className="mt-4 grid grid-cols-4 gap-4"
+                  className="mt-4 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto"
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
