@@ -10,7 +10,7 @@ import {
 import { Image } from "@nextui-org/image";
 import { Card, CardBody } from "@nextui-org/card";
 import { Badge } from "@nextui-org/badge";
-import { PhotoIcon } from "@heroicons/react/24/outline";
+import { PhotoIcon, TrashIcon } from "@heroicons/react/24/outline";
 import {
   Modal,
   ModalContent,
@@ -18,7 +18,7 @@ import {
   Accordion,
   AccordionItem,
 } from "@nextui-org/react";
-import { Button } from "@nextui-org/button";
+import { Button, ButtonGroup } from "@nextui-org/button";
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]);
@@ -51,6 +51,11 @@ export default function Home() {
 
     setFiles(items);
   };
+
+  const removeFile = (name: string) => {
+    setFiles(files.filter((file) => file.name !== name));
+  };
+
   return (
     <>
       <div className="sm:px-12 text-justify">
@@ -122,12 +127,12 @@ export default function Home() {
         </Accordion>
       </div>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5 px-12">
-        <Card className="py-4">
+        <Card className="py-4 w-full">
           <CardBody className="overflow-visible py-2">
             <div
               {...getRootProps({
                 className:
-                  "dropzone p-4 border-2 border-dashed rounded-lg border-gray-400 cursor-pointer",
+                  "dropzone p-4 border-2 border-dashed rounded-lg border-gray-400 cursor-pointer h-64 my-auto flex flex-col items-center justify-center",
               })}
             >
               <input {...getInputProps()} />
@@ -162,7 +167,15 @@ export default function Home() {
                               placement="top-left"
                               className="p-5"
                             >
-                              <Card className="py-4">
+                              <Button
+                                onClick={() => removeFile(file.name)}
+                                color="danger"
+                                isIconOnly
+                                className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-1 -mr-1"
+                              >
+                                <TrashIcon className="w-4 h-4" />
+                              </Button>
+                              <Card className="py-4 relative">
                                 <CardBody className="overflow-visible py-2">
                                   <Image
                                     alt="NextUI hero Image"
