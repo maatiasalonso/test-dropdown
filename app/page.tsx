@@ -11,9 +11,20 @@ import { Image } from "@nextui-org/image";
 import { Card, CardBody } from "@nextui-org/card";
 import { Badge } from "@nextui-org/badge";
 import { PhotoIcon } from "@heroicons/react/24/outline";
+import { useDisclosure } from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+} from "@nextui-org/react";
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const onDrop = useCallback((acceptedFiles: any) => {
     setFiles((prev) => {
@@ -89,7 +100,30 @@ export default function Home() {
                                   alt="NextUI hero Image"
                                   className="w-64 h-64"
                                   src={URL.createObjectURL(file)}
+                                  onClick={() => setPreviewImage(file.name)}
                                 />
+                                <Modal
+                                  isOpen={previewImage === file.name}
+                                  onOpenChange={() => setPreviewImage(null)}
+                                  hideCloseButton
+                                >
+                                  <ModalContent className="p-0">
+                                    {(onClose) => (
+                                      <>
+                                        <ModalBody className="p-0">
+                                          <Image
+                                            alt="NextUI hero Image"
+                                            className="w-full"
+                                            src={URL.createObjectURL(file)}
+                                            onClick={() =>
+                                              setPreviewImage(file.name)
+                                            }
+                                          />
+                                        </ModalBody>
+                                      </>
+                                    )}
+                                  </ModalContent>
+                                </Modal>
                               </CardBody>
                             </Card>
                           </Badge>
