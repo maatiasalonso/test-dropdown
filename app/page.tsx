@@ -172,7 +172,10 @@ export default function Home() {
                                   />
                                   <Modal
                                     isOpen={previewImage === file.name}
-                                    onOpenChange={() => setPreviewImage(null)}
+                                    onOpenChange={() => {
+                                      setPreviewImage(null);
+                                      setZoom(1);
+                                    }}
                                     hideCloseButton
                                     size="xl"
                                   >
