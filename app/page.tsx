@@ -132,7 +132,7 @@ export default function Home() {
           </AccordionItem>
         </Accordion>
       </div>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5 px-12">
+      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5 sm:px-12">
         <Card className="py-4 w-full">
           <CardBody className="overflow-visible py-2">
             <div
@@ -147,110 +147,220 @@ export default function Home() {
                 Drag and drop some files here, or click to select files
               </p>
             </div>
-            <DragDropContext onDragEnd={onDragEnd}>
-              <Droppable droppableId="droppable" direction="horizontal">
-                {(provided) => (
-                  <aside
-                    className="mt-4 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto"
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    {files.map((file, index) => (
-                      <Draggable
-                        key={file.name}
-                        draggableId={file.name}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
-                            <Badge
-                              content={index + 1}
-                              color="primary"
-                              placement="top-left"
-                              className="p-5"
+            <div className="sm:hidden mx-auto">
+              <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="droppable">
+                  {(provided) => (
+                    <aside
+                      className="mt-4 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto"
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {files.map((file, index) => (
+                        <Draggable
+                          key={file.name}
+                          draggableId={file.name}
+                          index={index}
+                        >
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
                             >
-                              <Button
-                                onClick={() => removeFile(file.name)}
-                                color="danger"
-                                isIconOnly
-                                className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-1 -mr-1"
+                              <Badge
+                                content={index + 1}
+                                color="primary"
+                                placement="top-left"
+                                className="p-5"
                               >
-                                <TrashIcon className="w-4 h-4" />
-                              </Button>
-                              <Card className="py-4 relative">
-                                <CardBody className="overflow-visible py-2">
-                                  <Image
-                                    alt="NextUI hero Image"
-                                    className="w-64 h-64"
-                                    src={URL.createObjectURL(file)}
-                                    onClick={() => setPreviewImage(file.name)}
-                                  />
-                                  <Modal
-                                    isOpen={previewImage === file.name}
-                                    onOpenChange={() => {
-                                      setPreviewImage(null);
-                                      setZoom(1);
-                                    }}
-                                    hideCloseButton
-                                    size="xl"
-                                    scrollBehavior="inside"
-                                  >
-                                    <ModalContent className="p-0">
-                                      {(onClose) => (
-                                        <>
-                                          <ModalBody className="p-0">
-                                            <Image
-                                              alt="NextUI hero Image"
-                                              className="w-full"
-                                              src={URL.createObjectURL(file)}
-                                              style={{
-                                                transform: `scale(${zoom})`,
-                                              }}
-                                            />
-                                            <div className="flex justify-around z-20 mt-12">
-                                              <Button
-                                                onClick={() =>
-                                                  setZoom((prevZoom) =>
-                                                    Math.max(
-                                                      0.1,
-                                                      prevZoom - 0.1
+                                <Button
+                                  onClick={() => removeFile(file.name)}
+                                  color="danger"
+                                  isIconOnly
+                                  className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-1 -mr-1"
+                                >
+                                  <TrashIcon className="w-4 h-4" />
+                                </Button>
+                                <Card className="py-4 relative">
+                                  <CardBody className="overflow-visible py-2">
+                                    <Image
+                                      alt="NextUI hero Image"
+                                      className="w-64 h-64"
+                                      src={URL.createObjectURL(file)}
+                                      onClick={() => setPreviewImage(file.name)}
+                                    />
+                                    <Modal
+                                      isOpen={previewImage === file.name}
+                                      onOpenChange={() => {
+                                        setPreviewImage(null);
+                                        setZoom(1);
+                                      }}
+                                      hideCloseButton
+                                      size="xl"
+                                      scrollBehavior="inside"
+                                    >
+                                      <ModalContent className="p-0">
+                                        {(onClose) => (
+                                          <>
+                                            <ModalBody className="p-0">
+                                              <Image
+                                                alt="NextUI hero Image"
+                                                className="w-full"
+                                                src={URL.createObjectURL(file)}
+                                                style={{
+                                                  transform: `scale(${zoom})`,
+                                                }}
+                                              />
+                                              <div className="flex justify-around z-20 mt-12">
+                                                <Button
+                                                  onClick={() =>
+                                                    setZoom((prevZoom) =>
+                                                      Math.max(
+                                                        0.1,
+                                                        prevZoom - 0.1
+                                                      )
                                                     )
-                                                  )
-                                                }
-                                              >
-                                                Zoom Out
-                                              </Button>
-                                              <Button
-                                                onClick={() =>
-                                                  setZoom(
-                                                    (prevZoom) => prevZoom + 0.1
-                                                  )
-                                                }
-                                              >
-                                                Zoom In
-                                              </Button>
-                                            </div>
-                                          </ModalBody>
-                                        </>
-                                      )}
-                                    </ModalContent>
-                                  </Modal>
-                                </CardBody>
-                              </Card>
-                            </Badge>
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </aside>
-                )}
-              </Droppable>
-            </DragDropContext>
+                                                  }
+                                                >
+                                                  Zoom Out
+                                                </Button>
+                                                <Button
+                                                  onClick={() =>
+                                                    setZoom(
+                                                      (prevZoom) =>
+                                                        prevZoom + 0.1
+                                                    )
+                                                  }
+                                                >
+                                                  Zoom In
+                                                </Button>
+                                              </div>
+                                            </ModalBody>
+                                          </>
+                                        )}
+                                      </ModalContent>
+                                    </Modal>
+                                  </CardBody>
+                                </Card>
+                              </Badge>
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </aside>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </div>
+            <div className="hidden sm:block">
+              <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="droppable" direction="horizontal">
+                  {(provided) => (
+                    <aside
+                      className="mt-4 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto"
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {files.map((file, index) => (
+                        <Draggable
+                          key={file.name}
+                          draggableId={file.name}
+                          index={index}
+                        >
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              <Badge
+                                content={index + 1}
+                                color="primary"
+                                placement="top-left"
+                                className="p-5"
+                              >
+                                <Button
+                                  onClick={() => removeFile(file.name)}
+                                  color="danger"
+                                  isIconOnly
+                                  className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-1 -mr-1"
+                                >
+                                  <TrashIcon className="w-4 h-4" />
+                                </Button>
+                                <Card className="py-4 relative">
+                                  <CardBody className="overflow-visible py-2">
+                                    <Image
+                                      alt="NextUI hero Image"
+                                      className="w-64 h-64"
+                                      src={URL.createObjectURL(file)}
+                                      onClick={() => setPreviewImage(file.name)}
+                                    />
+                                    <Modal
+                                      isOpen={previewImage === file.name}
+                                      onOpenChange={() => {
+                                        setPreviewImage(null);
+                                        setZoom(1);
+                                      }}
+                                      hideCloseButton
+                                      size="xl"
+                                      scrollBehavior="inside"
+                                    >
+                                      <ModalContent className="p-0">
+                                        {(onClose) => (
+                                          <>
+                                            <ModalBody className="p-0">
+                                              <Image
+                                                alt="NextUI hero Image"
+                                                className="w-full"
+                                                src={URL.createObjectURL(file)}
+                                                style={{
+                                                  transform: `scale(${zoom})`,
+                                                }}
+                                              />
+                                              <div className="flex justify-around z-20 mt-12">
+                                                <Button
+                                                  onClick={() =>
+                                                    setZoom((prevZoom) =>
+                                                      Math.max(
+                                                        0.1,
+                                                        prevZoom - 0.1
+                                                      )
+                                                    )
+                                                  }
+                                                >
+                                                  Zoom Out
+                                                </Button>
+                                                <Button
+                                                  onClick={() =>
+                                                    setZoom(
+                                                      (prevZoom) =>
+                                                        prevZoom + 0.1
+                                                    )
+                                                  }
+                                                >
+                                                  Zoom In
+                                                </Button>
+                                              </div>
+                                            </ModalBody>
+                                          </>
+                                        )}
+                                      </ModalContent>
+                                    </Modal>
+                                  </CardBody>
+                                </Card>
+                              </Badge>
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </aside>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </div>
           </CardBody>
         </Card>
       </section>
