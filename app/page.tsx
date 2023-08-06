@@ -11,14 +11,14 @@ import { Image } from "@nextui-org/image";
 import { Card, CardBody } from "@nextui-org/card";
 import { Badge } from "@nextui-org/badge";
 import { PhotoIcon } from "@heroicons/react/24/outline";
-import { useDisclosure } from "@nextui-org/react";
 import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
 import { Spacer } from "@nextui-org/spacer";
+import { Button } from "@nextui-org/button";
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [zoom, setZoom] = useState(1);
 
   const onDrop = useCallback((acceptedFiles: any) => {
     setFiles((prev) => {
@@ -136,8 +136,14 @@ export default function Home() {
                                     isOpen={previewImage === file.name}
                                     onOpenChange={() => setPreviewImage(null)}
                                     hideCloseButton
+                                    size="2xl"
                                   >
-                                    <ModalContent className="p-0">
+                                    <ModalContent
+                                      className="p-0"
+                                      style={{
+                                        width: `${100 * zoom}vw`,
+                                      }} // Dynamically adjust the modal size based on zoom level
+                                    >
                                       {(onClose) => (
                                         <>
                                           <ModalBody className="p-0">
@@ -145,10 +151,33 @@ export default function Home() {
                                               alt="NextUI hero Image"
                                               className="w-full"
                                               src={URL.createObjectURL(file)}
-                                              onClick={() =>
-                                                setPreviewImage(file.name)
-                                              }
+                                              style={{
+                                                transform: `scale(${zoom})`,
+                                              }}
                                             />
+                                            <div className="flex justify-around z-20 mt-12">
+                                              <Button
+                                                onClick={() =>
+                                                  setZoom((prevZoom) =>
+                                                    Math.max(
+                                                      0.1,
+                                                      prevZoom - 0.1
+                                                    )
+                                                  )
+                                                }
+                                              >
+                                                Zoom Out
+                                              </Button>
+                                              <Button
+                                                onClick={() =>
+                                                  setZoom(
+                                                    (prevZoom) => prevZoom + 0.1
+                                                  )
+                                                }
+                                              >
+                                                Zoom In
+                                              </Button>
+                                            </div>
                                           </ModalBody>
                                         </>
                                       )}
