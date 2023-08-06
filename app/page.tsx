@@ -10,15 +10,15 @@ import {
 import { Image } from "@nextui-org/image";
 import { Card, CardBody } from "@nextui-org/card";
 import { Badge } from "@nextui-org/badge";
-import { PhotoIcon, TrashIcon } from "@heroicons/react/24/outline";
 import {
-  Modal,
-  ModalContent,
-  ModalBody,
-  Accordion,
-  AccordionItem,
-} from "@nextui-org/react";
+  PhotoIcon,
+  TrashIcon,
+  MagnifyingGlassPlusIcon,
+  MagnifyingGlassMinusIcon,
+} from "@heroicons/react/24/outline";
+import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
 import { Button, ButtonGroup } from "@nextui-org/button";
+import Information from "@/components/information";
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]);
@@ -58,80 +58,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="sm:px-12 text-justify">
-        <h1 className="font-bold text-3xl text-center">
-          Image Uploader & Organizer
-        </h1>
-        <div className="ml-2 mr-2 mt-10">
-          <h2 className="text-xl font-semibold">Instructions</h2>
-          <p className="mt-4">
-            This component has been designed to make managing images on your
-            platform a breeze. It offers you the flexibility to upload, view,
-            organize, and even zoom in and out of your images effortlessly. Now,
-            let&apos;s delve into how you can make the most of these
-            functionalities:
-          </p>
-        </div>
-        <Accordion className="mt-5" defaultExpandedKeys={["1"]}>
-          <AccordionItem
-            key="1"
-            aria-label="Upload Images"
-            title="Upload Images"
-          >
-            <p>
-              To upload images, you can either click on the center area, which
-              will open a file selection dialog, or you can drag and drop images
-              from your file explorer onto this area. This component accepts
-              image files only.
-            </p>
-          </AccordionItem>
-          <AccordionItem key="2" aria-label="View Images" title="View Images">
-            <p>
-              Once images are uploaded, they appear in a grid below the upload
-              area. Click on any image to view it in full size. A modal will
-              open showing the selected image. Click anywhere outside the image
-              to close this view.
-            </p>
-          </AccordionItem>
-          <AccordionItem
-            key="3"
-            aria-label="Zoom In & Out"
-            title="Zoom In & Out"
-          >
-            <p>
-              When viewing an image in full size, you can zoom in and out using
-              <strong> Zoom In</strong> and <strong>Zoom Out</strong> buttons
-              placed outside the modal on the top. Clicking
-              <strong> Zoom In</strong> will increase the size of the image and
-              the modal, while <strong>Zoom Out</strong> will decrease their
-              sizes. Be mindful of your screen size when using the zoom
-              features.
-            </p>
-          </AccordionItem>
-          <AccordionItem
-            key="4"
-            aria-label="Organize Images"
-            title="Organize Images"
-          >
-            <p>
-              The images can be reordered based on your preference. To do this,
-              click and hold on an image you wish to move, then drag it to your
-              desired location. Release the click to drop the image at that
-              location.
-            </p>
-          </AccordionItem>
-          <AccordionItem
-            key="5"
-            aria-label="Delete Images"
-            title="Delete Images"
-          >
-            <p>
-              To delete an image, click on the <strong>Trash</strong> button
-              located at the top right corner of the image card.
-            </p>
-          </AccordionItem>
-        </Accordion>
-      </div>
+      <Information />
+
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5 sm:px-12">
         <Card className="py-4 w-full">
           <CardBody className="overflow-visible py-2">
@@ -212,30 +140,6 @@ export default function Home() {
                                                   transform: `scale(${zoom})`,
                                                 }}
                                               />
-                                              <div className="flex justify-around z-20 mt-12">
-                                                <Button
-                                                  onClick={() =>
-                                                    setZoom((prevZoom) =>
-                                                      Math.max(
-                                                        0.1,
-                                                        prevZoom - 0.1
-                                                      )
-                                                    )
-                                                  }
-                                                >
-                                                  Zoom Out
-                                                </Button>
-                                                <Button
-                                                  onClick={() =>
-                                                    setZoom(
-                                                      (prevZoom) =>
-                                                        prevZoom + 0.1
-                                                    )
-                                                  }
-                                                >
-                                                  Zoom In
-                                                </Button>
-                                              </div>
                                             </ModalBody>
                                           </>
                                         )}
@@ -307,9 +211,42 @@ export default function Home() {
                                       size="xl"
                                       scrollBehavior="inside"
                                     >
-                                      <ModalContent className="p-0">
-                                        {(onClose) => (
+                                      <ModalContent className="p-0 relative">
+                                        {(onClose: any) => (
                                           <>
+                                            <div className="flex justify-around w-full z-50 absolute -mt-16">
+                                              <Button
+                                                endContent={
+                                                  <MagnifyingGlassMinusIcon className="w-5 h-5" />
+                                                }
+                                                color="primary"
+                                                className="text-white"
+                                                onClick={() =>
+                                                  setZoom((prevZoom) =>
+                                                    Math.max(
+                                                      0.1,
+                                                      prevZoom - 0.1
+                                                    )
+                                                  )
+                                                }
+                                              >
+                                                Zoom Out
+                                              </Button>
+                                              <Button
+                                                endContent={
+                                                  <MagnifyingGlassPlusIcon className="w-5 h-5" />
+                                                }
+                                                color="primary"
+                                                className="text-white"
+                                                onClick={() =>
+                                                  setZoom(
+                                                    (prevZoom) => prevZoom + 0.1
+                                                  )
+                                                }
+                                              >
+                                                Zoom In
+                                              </Button>
+                                            </div>
                                             <ModalBody className="p-0">
                                               <Image
                                                 alt="NextUI hero Image"
@@ -319,30 +256,6 @@ export default function Home() {
                                                   transform: `scale(${zoom})`,
                                                 }}
                                               />
-                                              <div className="flex justify-around z-20 mt-12">
-                                                <Button
-                                                  onClick={() =>
-                                                    setZoom((prevZoom) =>
-                                                      Math.max(
-                                                        0.1,
-                                                        prevZoom - 0.1
-                                                      )
-                                                    )
-                                                  }
-                                                >
-                                                  Zoom Out
-                                                </Button>
-                                                <Button
-                                                  onClick={() =>
-                                                    setZoom(
-                                                      (prevZoom) =>
-                                                        prevZoom + 0.1
-                                                    )
-                                                  }
-                                                >
-                                                  Zoom In
-                                                </Button>
-                                              </div>
                                             </ModalBody>
                                           </>
                                         )}
