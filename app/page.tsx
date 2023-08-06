@@ -54,7 +54,7 @@ export default function Home() {
   };
   return (
     <>
-      <div className="px-12 text-justify">
+      <div className="sm:px-12 text-justify">
         <h1 className="font-bold text-2xl text-center">
           Image Uploader & Organizer
         </h1>
