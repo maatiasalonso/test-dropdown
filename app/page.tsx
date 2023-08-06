@@ -136,14 +136,9 @@ export default function Home() {
                                     isOpen={previewImage === file.name}
                                     onOpenChange={() => setPreviewImage(null)}
                                     hideCloseButton
-                                    size="2xl"
+                                    size="xl"
                                   >
-                                    <ModalContent
-                                      className="p-0"
-                                      style={{
-                                        width: `${100 * zoom}vw`,
-                                      }} // Dynamically adjust the modal size based on zoom level
-                                    >
+                                    <ModalContent className="p-0">
                                       {(onClose) => (
                                         <>
                                           <ModalBody className="p-0">
