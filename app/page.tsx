@@ -85,11 +85,7 @@ export default function Home() {
               image files only.
             </p>
           </AccordionItem>
-          <AccordionItem
-            key="2"
-            aria-label="Viewing Images"
-            title="Viewing Images"
-          >
+          <AccordionItem key="2" aria-label="View Images" title="View Images">
             <p>
               Once images are uploaded, they appear in a grid below the upload
               area. Click on any image to view it in full size. A modal will
@@ -99,8 +95,8 @@ export default function Home() {
           </AccordionItem>
           <AccordionItem
             key="3"
-            aria-label="Zooming In & Out"
-            title="Zooming In & Out"
+            aria-label="Zoom In & Out"
+            title="Zoom In & Out"
           >
             <p>
               When viewing an image in full size, you can zoom in and out using
@@ -114,14 +110,24 @@ export default function Home() {
           </AccordionItem>
           <AccordionItem
             key="4"
-            aria-label="Organizing Images"
-            title="Organizing Images"
+            aria-label="Organize Images"
+            title="Organize Images"
           >
             <p>
               The images can be reordered based on your preference. To do this,
               click and hold on an image you wish to move, then drag it to your
               desired location. Release the click to drop the image at that
               location.
+            </p>
+          </AccordionItem>
+          <AccordionItem
+            key="5"
+            aria-label="Delete Images"
+            title="Delete Images"
+          >
+            <p>
+              To delete an image, click on the <strong>Trash</strong> button
+              located at the top right corner of the image card.
             </p>
           </AccordionItem>
         </Accordion>
