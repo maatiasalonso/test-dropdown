@@ -178,6 +178,7 @@ export default function Home() {
                                     }}
                                     hideCloseButton
                                     size="xl"
+                                    scrollBehavior="inside"
                                   >
                                     <ModalContent className="p-0">
                                       {(onClose) => (
