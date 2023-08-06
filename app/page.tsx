@@ -11,7 +11,13 @@ import { Image } from "@nextui-org/image";
 import { Card, CardBody } from "@nextui-org/card";
 import { Badge } from "@nextui-org/badge";
 import { PhotoIcon } from "@heroicons/react/24/outline";
-import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalBody,
+  Accordion,
+  AccordionItem,
+} from "@nextui-org/react";
 import { Spacer } from "@nextui-org/spacer";
 import { Button } from "@nextui-org/button";
 
@@ -52,36 +58,60 @@ export default function Home() {
         <h1 className="font-bold text-2xl text-center">
           Sortable Drag and Drop Dropzone
         </h1>
-        <h2 className="text-xl mt-5 font-semibold">Instructions</h2>
-        <ul className="mt-5">
-          <li>
+        <h2 className="text-xl mt-5 font-semibold ml-2">Instructions</h2>
+        <Accordion className="mt-5" defaultExpandedKeys={["1"]}>
+          <AccordionItem
+            key="1"
+            aria-label="Upload Images"
+            title="Upload Images"
+          >
             <p>
-              <strong>Upload Images: </strong>
               To upload images, you can either click on the center area, which
               will open a file selection dialog, or you can drag and drop images
               from your file explorer onto this area. This component accepts
               image files only.
             </p>
-          </li>
-          <Spacer y={4} />
-          <li>
+          </AccordionItem>
+          <AccordionItem
+            key="2"
+            aria-label="Viewing Images"
+            title="Viewing Images"
+          >
             <p>
-              <strong>Viewing Images: </strong>
               Once images are uploaded, they appear in a grid below the upload
               area. Click on any image to view it in full size. A modal will
               open showing the selected image. Click anywhere outside the image
               to close this view.
             </p>
-          </li>
-          <Spacer y={4} />
-          <li>
-            <strong>Organizing Images: </strong>
-            The images can be reordered based on your preference. To do this,
-            click and hold on an image you wish to move, then drag it to your
-            desired location. Release the click to drop the image at that
-            location.
-          </li>
-        </ul>
+          </AccordionItem>
+          <AccordionItem
+            key="3"
+            aria-label="Zooming In & Out"
+            title="Zooming In & Out"
+          >
+            <p>
+              When viewing an image in full size, you can zoom in and out using
+              <strong> Zoom In</strong> and <strong>Zoom Out</strong> buttons
+              placed outside the modal on the top. Clicking
+              <strong> Zoom In</strong> will increase the size of the image and
+              the modal, while <strong>Zoom Out</strong> will decrease their
+              sizes. Be mindful of your screen size when using the zoom
+              features.
+            </p>
+          </AccordionItem>
+          <AccordionItem
+            key="4"
+            aria-label="Organizing Images"
+            title="Organizing Images"
+          >
+            <p>
+              The images can be reordered based on your preference. To do this,
+              click and hold on an image you wish to move, then drag it to your
+              desired location. Release the click to drop the image at that
+              location.
+            </p>
+          </AccordionItem>
+        </Accordion>
       </div>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5">
         <Card className="py-4">
