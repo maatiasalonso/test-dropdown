@@ -121,7 +121,7 @@ export default function Home() {
           </AccordionItem>
         </Accordion>
       </div>
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5">
+      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5 px-12">
         <Card className="py-4">
           <CardBody className="overflow-visible py-2">
             <div
