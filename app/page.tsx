@@ -95,7 +95,7 @@ export default function Home() {
               <input {...getInputProps()} />
               <PhotoIcon className="w-24 h-24 text-gray-300 mx-auto" />
               <p className="text-center text-gray-500">
-                Drag n drop some files here, or click to select files
+                Drag and drop some files here, or click to select files
               </p>
             </div>
             <DragDropContext onDragEnd={onDragEnd}>
