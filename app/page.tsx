@@ -56,9 +56,18 @@ export default function Home() {
     <>
       <div className="px-12 text-justify">
         <h1 className="font-bold text-2xl text-center">
-          Sortable Drag and Drop Dropzone
+          Image Uploader & Organizer
         </h1>
-        <h2 className="text-xl mt-5 font-semibold ml-2">Instructions</h2>
+        <div className="ml-2 mr-2 mt-10">
+          <h2 className="text-xl font-semibold">Instructions</h2>
+          <p className="mt-4">
+            This component has been designed to make managing images on your
+            platform a breeze. It offers you the flexibility to upload, view,
+            organize, and even zoom in and out of your images effortlessly. Now,
+            let&apos;s delve into how you can make the most of these
+            functionalities:
+          </p>
+        </div>
         <Accordion className="mt-5" defaultExpandedKeys={["1"]}>
           <AccordionItem
             key="1"
