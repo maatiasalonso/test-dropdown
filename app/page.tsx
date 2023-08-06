@@ -18,7 +18,6 @@ import {
   Accordion,
   AccordionItem,
 } from "@nextui-org/react";
-import { Spacer } from "@nextui-org/spacer";
 import { Button } from "@nextui-org/button";
 
 export default function Home() {
