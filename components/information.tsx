@@ -1,4 +1,11 @@
 import { Accordion, AccordionItem } from "@nextui-org/react";
+import {
+  HiOutlineFolder,
+  HiOutlinePhotograph,
+  HiOutlineTrash,
+  HiOutlineUpload,
+  HiOutlineZoomIn,
+} from "react-icons/hi";
 
 export default function Information() {
   return (
@@ -16,8 +23,22 @@ export default function Information() {
           functionalities:
         </p>
       </div>
-      <Accordion className="mt-5" defaultExpandedKeys={["1"]}>
-        <AccordionItem key="1" aria-label="Upload Images" title="Upload Images">
+      <Accordion
+        className="mt-5"
+        itemClasses={{
+          trigger:
+            "dark:hover:bg-zinc-700/90 hover:bg-zinc-200/90 transition-all rounded-lg h-14",
+        }}
+        defaultExpandedKeys={["1"]}
+        variant="splitted"
+        showDivider={false}
+      >
+        <AccordionItem
+          key="1"
+          aria-label="Upload Images"
+          title="Upload Images"
+          startContent={<HiOutlineUpload className="w-5 h-5" />}
+        >
           <p>
             To upload images, you can either click on the center area, which
             will open a file selection dialog, or you can drag and drop images
@@ -25,7 +46,12 @@ export default function Information() {
             files only.
           </p>
         </AccordionItem>
-        <AccordionItem key="2" aria-label="View Images" title="View Images">
+        <AccordionItem
+          key="2"
+          aria-label="View Images"
+          title="View Images"
+          startContent={<HiOutlinePhotograph className="w-5 h-5" />}
+        >
           <p>
             Once images are uploaded, they appear in a grid below the upload
             area. Click on any image to view it in full size. A modal will open
@@ -33,7 +59,12 @@ export default function Information() {
             close this view.
           </p>
         </AccordionItem>
-        <AccordionItem key="3" aria-label="Zoom In & Out" title="Zoom In & Out">
+        <AccordionItem
+          key="3"
+          aria-label="Zoom In & Out"
+          title="Zoom In & Out"
+          startContent={<HiOutlineZoomIn className="w-5 h-5" />}
+        >
           <p>
             When viewing an image in full size, you can zoom in and out using
             <strong> Zoom In</strong> and <strong>Zoom Out</strong> buttons
@@ -47,6 +78,7 @@ export default function Information() {
           key="4"
           aria-label="Organize Images"
           title="Organize Images"
+          startContent={<HiOutlineFolder className="w-5 h-5" />}
         >
           <p>
             The images can be reordered based on your preference. To do this,
@@ -55,7 +87,12 @@ export default function Information() {
             location.
           </p>
         </AccordionItem>
-        <AccordionItem key="5" aria-label="Delete Images" title="Delete Images">
+        <AccordionItem
+          key="5"
+          aria-label="Delete Images"
+          title="Delete Images"
+          startContent={<HiOutlineTrash className="w-5 h-5" />}
+        >
           <p>
             To delete an image, click on the <strong>Trash</strong> button
             located at the top right corner of the image card.

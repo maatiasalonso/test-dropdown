@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import {
@@ -7,17 +8,22 @@ import {
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import { Image } from "@nextui-org/image";
-import { Card, CardBody } from "@nextui-org/card";
-import { Badge } from "@nextui-org/badge";
 import {
   PhotoIcon,
   TrashIcon,
   MagnifyingGlassPlusIcon,
   MagnifyingGlassMinusIcon,
 } from "@heroicons/react/24/outline";
-import { Modal, ModalContent, ModalBody } from "@nextui-org/react";
-import { Button, ButtonGroup } from "@nextui-org/button";
+import {
+  Modal,
+  ModalContent,
+  ModalBody,
+  Button,
+  Badge,
+  Image,
+  Card,
+  CardBody,
+} from "@nextui-org/react";
 import Information from "@/components/information";
 
 export default function Home() {
@@ -60,8 +66,8 @@ export default function Home() {
     <>
       <Information />
 
-      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5 sm:px-12">
-        <Card className="py-4 w-full">
+      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5 sm:px-14 px-2">
+        <Card className="py-4 w-full hover:bg-zinc-300/90">
           <CardBody className="overflow-visible py-2">
             <div
               {...getRootProps({
