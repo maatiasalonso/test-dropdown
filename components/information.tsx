@@ -77,10 +77,9 @@ export default function Information() {
         </p>
       </div>
       <Accordion
-        className="mt-5"
+        className="mt-5 flex-col flex gap-3"
         itemClasses={{
-          trigger:
-            "dark:hover:bg-zinc-800/90 hover:bg-zinc-200/90 transition-all rounded-lg",
+          base: "dark:hover:bg-zinc-800/90 hover:bg-zinc-100 transition-all rounded-lg",
         }}
         defaultExpandedKeys={["1"]}
         variant="splitted"

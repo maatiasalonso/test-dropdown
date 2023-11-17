@@ -67,7 +67,7 @@ export default function Home() {
       <Information />
 
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5 sm:px-14 px-2">
-        <Card className="py-4 w-full hover:bg-zinc-200/90 dark:hover:bg-zinc-800/90">
+        <Card className="py-4 w-full hover:bg-zinc-100 dark:hover:bg-zinc-800/90">
           <CardBody className="overflow-visible py-2">
             <div
               {...getRootProps({
