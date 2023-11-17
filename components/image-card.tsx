@@ -27,7 +27,7 @@ export const ImageCard = ({ file }: ImageCardProps) => {
       <Card className="relative hover:scale-105">
         <CardBody className="overflow-visible p-0">
           <Image
-            alt="NextUI hero Image"
+            alt="Image Uploaded"
             className="w-64 h-64"
             src={URL.createObjectURL(file)}
             onClick={() => setPreviewImage(file.name)}
@@ -41,6 +41,7 @@ export const ImageCard = ({ file }: ImageCardProps) => {
             hideCloseButton
             placement="center"
             scrollBehavior="inside"
+            className="w-auto"
           >
             <ModalContent className="p-0">
               {(onClose) => (
@@ -51,7 +52,7 @@ export const ImageCard = ({ file }: ImageCardProps) => {
                         <MagnifyingGlassMinusIcon className="w-5 h-5" />
                       }
                       color="primary"
-                      className="text-white"
+                      className="text-white hover:bg-primary/90 transition-all"
                       onClick={() =>
                         setZoom((prevZoom) => Math.max(0.1, prevZoom - 0.1))
                       }
@@ -63,7 +64,7 @@ export const ImageCard = ({ file }: ImageCardProps) => {
                         <MagnifyingGlassPlusIcon className="w-5 h-5" />
                       }
                       color="primary"
-                      className="text-white"
+                      className="text-white hover:bg-primary/90 transition-all"
                       onClick={() => setZoom((prevZoom) => prevZoom + 0.1)}
                     >
                       Zoom In
