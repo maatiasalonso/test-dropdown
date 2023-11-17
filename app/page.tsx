@@ -67,17 +67,17 @@ export default function Home() {
       <Information />
 
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 mt-5 sm:px-14 px-2">
-        <Card className="py-4 w-full hover:bg-zinc-300/90">
+        <Card className="py-4 w-full hover:bg-zinc-200/90 dark:hover:bg-zinc-800/90">
           <CardBody className="overflow-visible py-2">
             <div
               {...getRootProps({
                 className:
-                  "dropzone p-4 border-2 border-dashed rounded-lg border-gray-400 cursor-pointer h-64 my-auto flex flex-col items-center justify-center",
+                  "dropzone p-4 border-2 border-dashed rounded-lg border-zinc-500 cursor-pointer h-64 my-auto flex flex-col items-center justify-center",
               })}
             >
               <input {...getInputProps()} />
-              <PhotoIcon className="w-24 h-24 text-gray-300 mx-auto" />
-              <p className="text-center text-gray-500">
+              <PhotoIcon className="w-24 h-24 text-zinc-500 mx-auto" />
+              <p className="text-center text-zinc-500">
                 Drag and drop some files here, or click to select files
               </p>
             </div>
