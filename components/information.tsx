@@ -60,7 +60,7 @@ const data = [
   },
 ];
 
-export default function Information() {
+export const Information = () => {
   return (
     <div className="sm:px-12 text-justify">
       <h1 className="font-bold text-3xl text-center">
@@ -98,4 +98,4 @@ export default function Information() {
       </Accordion>
     </div>
   );
-}
+};

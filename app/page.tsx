@@ -8,28 +8,13 @@ import {
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
-import {
-  PhotoIcon,
-  TrashIcon,
-  MagnifyingGlassPlusIcon,
-  MagnifyingGlassMinusIcon,
-} from "@heroicons/react/24/outline";
-import {
-  Modal,
-  ModalContent,
-  ModalBody,
-  Button,
-  Badge,
-  Image,
-  Card,
-  CardBody,
-} from "@nextui-org/react";
-import Information from "@/components/information";
+import { PhotoIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { Button, Badge, Card, CardBody, Tooltip } from "@nextui-org/react";
+import { Information } from "@/components/information";
+import { ImageCard } from "@/components/image-card";
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [zoom, setZoom] = useState(1);
 
   const onDrop = useCallback((acceptedFiles: any) => {
     setFiles((prev) => {
@@ -81,207 +66,110 @@ export default function Home() {
                 Drag and drop some files here, or click to select files
               </p>
             </div>
-            <div className="sm:hidden mx-auto">
-              <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="droppable">
-                  {(provided) => (
-                    <aside
-                      className="mt-4 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto"
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                    >
-                      {files.map((file, index) => (
-                        <Draggable
-                          key={file.name}
-                          draggableId={file.name}
-                          index={index}
-                        >
-                          {(provided) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
-                              <Badge
-                                content={index + 1}
-                                color="primary"
-                                placement="top-left"
-                                className="p-5"
-                              >
-                                <Button
-                                  onClick={() => removeFile(file.name)}
-                                  color="danger"
-                                  isIconOnly
-                                  className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-1 -mr-1"
-                                >
-                                  <TrashIcon className="w-4 h-4" />
-                                </Button>
-                                <Card className="py-4 relative">
-                                  <CardBody className="overflow-visible py-2">
-                                    <Image
-                                      alt="NextUI hero Image"
-                                      className="w-64 h-64"
-                                      src={URL.createObjectURL(file)}
-                                      onClick={() => setPreviewImage(file.name)}
-                                    />
-                                    <Modal
-                                      isOpen={previewImage === file.name}
-                                      onOpenChange={() => {
-                                        setPreviewImage(null);
-                                        setZoom(1);
-                                      }}
-                                      hideCloseButton
-                                      size="xl"
-                                      scrollBehavior="inside"
-                                    >
-                                      <ModalContent className="p-0">
-                                        {(onClose) => (
-                                          <>
-                                            <ModalBody className="p-0">
-                                              <Image
-                                                alt="NextUI hero Image"
-                                                className="w-full"
-                                                src={URL.createObjectURL(file)}
-                                                style={{
-                                                  transform: `scale(${zoom})`,
-                                                }}
-                                              />
-                                            </ModalBody>
-                                          </>
-                                        )}
-                                      </ModalContent>
-                                    </Modal>
-                                  </CardBody>
-                                </Card>
-                              </Badge>
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                      {provided.placeholder}
-                    </aside>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            </div>
-            <div className="hidden sm:block">
-              <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="droppable" direction="horizontal">
-                  {(provided) => (
-                    <aside
-                      className="mt-4 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto"
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                    >
-                      {files.map((file, index) => (
-                        <Draggable
-                          key={file.name}
-                          draggableId={file.name}
-                          index={index}
-                        >
-                          {(provided) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
-                              <Badge
-                                content={index + 1}
-                                color="primary"
-                                placement="top-left"
-                                className="p-5"
-                              >
-                                <Button
-                                  onClick={() => removeFile(file.name)}
-                                  color="danger"
-                                  isIconOnly
-                                  className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-1 -mr-1"
-                                >
-                                  <TrashIcon className="w-4 h-4" />
-                                </Button>
-                                <Card className="py-4 relative">
-                                  <CardBody className="overflow-visible py-2">
-                                    <Image
-                                      alt="NextUI hero Image"
-                                      className="w-64 h-64"
-                                      src={URL.createObjectURL(file)}
-                                      onClick={() => setPreviewImage(file.name)}
-                                    />
-                                    <Modal
-                                      isOpen={previewImage === file.name}
-                                      onOpenChange={() => {
-                                        setPreviewImage(null);
-                                        setZoom(1);
-                                      }}
-                                      hideCloseButton
-                                      size="xl"
-                                      scrollBehavior="inside"
-                                    >
-                                      <ModalContent className="p-0 relative">
-                                        {(onClose: any) => (
-                                          <>
-                                            <div className="flex justify-around w-full z-50 absolute -mt-16">
-                                              <Button
-                                                endContent={
-                                                  <MagnifyingGlassMinusIcon className="w-5 h-5" />
-                                                }
-                                                color="primary"
-                                                className="text-white"
-                                                onClick={() =>
-                                                  setZoom((prevZoom) =>
-                                                    Math.max(
-                                                      0.1,
-                                                      prevZoom - 0.1
-                                                    )
-                                                  )
-                                                }
-                                              >
-                                                Zoom Out
-                                              </Button>
-                                              <Button
-                                                endContent={
-                                                  <MagnifyingGlassPlusIcon className="w-5 h-5" />
-                                                }
-                                                color="primary"
-                                                className="text-white"
-                                                onClick={() =>
-                                                  setZoom(
-                                                    (prevZoom) => prevZoom + 0.1
-                                                  )
-                                                }
-                                              >
-                                                Zoom In
-                                              </Button>
-                                            </div>
-                                            <ModalBody className="p-0">
-                                              <Image
-                                                alt="NextUI hero Image"
-                                                className="w-full"
-                                                src={URL.createObjectURL(file)}
-                                                style={{
-                                                  transform: `scale(${zoom})`,
-                                                }}
-                                              />
-                                            </ModalBody>
-                                          </>
-                                        )}
-                                      </ModalContent>
-                                    </Modal>
-                                  </CardBody>
-                                </Card>
-                              </Badge>
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                      {provided.placeholder}
-                    </aside>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            </div>
           </CardBody>
         </Card>
+        <div className="sm:hidden mx-auto">
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable">
+              {(provided) => (
+                <aside
+                  className="mt-4 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {files.map((file, index) => (
+                    <Draggable
+                      key={file.name}
+                      draggableId={file.name}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Badge
+                            content={index + 1}
+                            color="primary"
+                            placement="top-left"
+                            className="p-5"
+                          >
+                            <Button
+                              onClick={() => removeFile(file.name)}
+                              color="danger"
+                              isIconOnly
+                              className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-1 -mr-1"
+                            >
+                              <TrashIcon className="w-4 h-4" />
+                            </Button>
+                            <ImageCard file={file} />
+                          </Badge>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </aside>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
+        <div className="hidden sm:block">
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable" direction="horizontal">
+              {(provided) => (
+                <aside
+                  className="mt-6 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {files.map((file, index) => (
+                    <Draggable
+                      key={file.name}
+                      draggableId={file.name}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Badge
+                            content={index + 1}
+                            color="primary"
+                            placement="top-left"
+                            className="p-5 top-0 left-0 -mt-2 -ml-2"
+                          >
+                            <Tooltip
+                              placement="top"
+                              showArrow
+                              content="Remove"
+                              closeDelay={100}
+                              color="danger"
+                            >
+                              <Button
+                                onClick={() => removeFile(file.name)}
+                                color="danger"
+                                isIconOnly
+                                className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-3 -mr-3 hover:scale-110 transition-all"
+                              >
+                                <TrashIcon className="w-4 h-4" />
+                              </Button>
+                            </Tooltip>
+                            <ImageCard file={file} />
+                          </Badge>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </aside>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
       </section>
     </>
   );
