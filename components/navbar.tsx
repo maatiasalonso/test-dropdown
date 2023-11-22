@@ -1,21 +1,16 @@
 import {
   Navbar as NextUINavbar,
   NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
   NavbarItem,
-  NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
 import { Tooltip } from "@nextui-org/tooltip";
-import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 
 export const Navbar = () => {
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
+        className="hidden sm:flex basis-1/5 sm:basis-full px-28"
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
