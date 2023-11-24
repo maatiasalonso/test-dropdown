@@ -7,7 +7,7 @@ import {
   Droppable,
   Draggable,
   DropResult,
-} from "react-beautiful-dnd";
+} from "@hello-pangea/dnd";
 import { PhotoIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Button, Badge, Card, CardBody, Tooltip } from "@nextui-org/react";
 import { Information } from "@/components/information";
