@@ -24,7 +24,7 @@ export const ImageCard = ({ file }: ImageCardProps) => {
 
   return (
     <>
-      <Card className="relative hover:scale-105">
+      <Card className="relative">
         <CardBody className="overflow-visible p-0">
           <Image
             alt="Image Uploaded"

@@ -99,7 +99,7 @@ export default function Home() {
                               onClick={() => removeFile(file.name)}
                               color="danger"
                               isIconOnly
-                              className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-1 -mr-1"
+                              className="w-full rounded-t-none absolute z-20 bottom-0 -mt-3 -mr-3 transition-all opacity-70"
                             >
                               <TrashIcon className="w-4 h-4" />
                             </Button>
@@ -120,7 +120,7 @@ export default function Home() {
             <Droppable droppableId="droppable" direction="horizontal">
               {(provided) => (
                 <aside
-                  className="mt-6 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto"
+                  className="mt-6 grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-4 mx-auto group"
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                 >
@@ -140,7 +140,7 @@ export default function Home() {
                             content={index + 1}
                             color="primary"
                             placement="top-left"
-                            className="p-5 top-0 left-0 -mt-2 -ml-2"
+                            className="p-5"
                           >
                             <Tooltip
                               placement="top"
@@ -153,7 +153,7 @@ export default function Home() {
                                 onClick={() => removeFile(file.name)}
                                 color="danger"
                                 isIconOnly
-                                className="rounded-full w-5 absolute z-20 top-0 right-0 -mt-3 -mr-3 hover:scale-110 transition-all"
+                                className="w-full rounded-t-none absolute z-20 bottom-0 -mt-3 -mr-3 transition-all opacity-70"
                               >
                                 <TrashIcon className="w-4 h-4" />
                               </Button>

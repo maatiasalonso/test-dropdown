@@ -8,7 +8,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 
 export const Navbar = () => {
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar maxWidth="xl" position="static">
       <NavbarContent
         className="hidden sm:flex basis-1/5 sm:basis-full px-28"
         justify="end"

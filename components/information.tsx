@@ -3,7 +3,7 @@ import { data } from "@/config/data";
 
 export const Information = () => {
   return (
-    <div className="sm:px-12 text-justify">
+    <section className="sm:px-12 text-justify">
       <h1 className="font-bold text-3xl text-center">
         Image Uploader & Organizer
       </h1>
@@ -37,6 +37,6 @@ export const Information = () => {
           </AccordionItem>
         ))}
       </Accordion>
-    </div>
+    </section>
   );
 };
