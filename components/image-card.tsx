@@ -23,12 +23,13 @@ export const ImageCard = ({ file }: ImageCardProps) => {
   const [zoom, setZoom] = useState(1);
 
   return (
-    <>
-      <Card className="relative">
+    <section className="hover:opacity-40 transition-all">
+      <Card>
         <CardBody className="overflow-visible p-0">
           <Image
+            removeWrapper
             alt="Image Uploaded"
-            className="w-64 h-64"
+            className="w-64 h-64 object-cover"
             src={URL.createObjectURL(file)}
             onClick={() => setPreviewImage(file.name)}
           />
@@ -86,6 +87,6 @@ export const ImageCard = ({ file }: ImageCardProps) => {
           </Modal>
         </CardBody>
       </Card>
-    </>
+    </section>
   );
 };
