@@ -23,7 +23,7 @@ export const ImageCard = ({ file }: ImageCardProps) => {
   const [zoom, setZoom] = useState(1);
 
   return (
-    <section className="hover:opacity-40 transition-all">
+    <section className="hover:opacity-50 transition-all dark:hover:opacity-40">
       <Card>
         <CardBody className="overflow-visible p-0">
           <Image
